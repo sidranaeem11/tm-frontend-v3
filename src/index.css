@@ -1391,3 +1391,191 @@ h3 {
   padding: 14px;
   font-size: 15px;
 }
+/* ==========================================================
+   ===== 3D PROFESSIONAL STYLES (ADDED AT END) ==============
+   ========================================================== */
+
+/* Product Cards - 3D lift on hover */
+.product-card {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(26, 26, 46, 0.08);
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 12px 24px rgba(26, 26, 46, 0.15),
+    0 24px 48px rgba(26, 26, 46, 0.1);
+}
+
+.product-card-image {
+  border-radius: 12px 12px 0 0;
+}
+
+.product-card-image img {
+  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.product-card:hover .product-card-image img {
+  transform: scale(1.08);
+}
+
+/* Buttons - 3D gradient */
+.btn-primary {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+  border-radius: 10px !important;
+  padding: 14px 32px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 4px 12px rgba(26, 26, 46, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 20px rgba(26, 26, 46, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%) !important;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Navbar - Glassmorphism */
+.nav-main {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.nav-top {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+}
+
+/* Hero image - 3D depth */
+.hero-layer-image {
+  border-radius: 16px !important;
+  box-shadow:
+    0 20px 40px rgba(26, 26, 46, 0.15),
+    0 8px 16px rgba(26, 26, 46, 0.1);
+}
+
+/* Category chips - 3D */
+.category-chip img {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+}
+
+.category-chip:hover img {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Cart items - depth */
+.cart-item {
+  background: #ffffff;
+  border-radius: 12px !important;
+  padding: 20px !important;
+  box-shadow: 0 2px 8px rgba(26, 26, 46, 0.06);
+  transition: box-shadow 0.3s ease;
+  border-bottom: none !important;
+}
+
+.cart-item:hover {
+  box-shadow: 0 6px 16px rgba(26, 26, 46, 0.1);
+}
+
+/* Admin form - elevated */
+.admin-form {
+  background: #ffffff;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow:
+    0 4px 12px rgba(26, 26, 46, 0.06),
+    0 12px 32px rgba(26, 26, 46, 0.04);
+}
+
+.admin-form input,
+.admin-form textarea,
+.admin-form select {
+  border-radius: 10px !important;
+  border: 1.5px solid #e0e0e0 !important;
+  transition: all 0.3s ease;
+}
+
+.admin-form input:focus,
+.admin-form textarea:focus,
+.admin-form select:focus {
+  border-color: #c0392b !important;
+  box-shadow: 0 0 0 4px rgba(192, 57, 43, 0.1);
+  outline: none;
+}
+
+/* Tags - 3D shadow */
+.tag {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(4px);
+  border-radius: 6px !important;
+}
+
+/* Footer - gradient top line */
+.footer {
+  background: linear-gradient(180deg, #1a1a2e 0%, #0f0f1e 100%) !important;
+  position: relative;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #e2a96f 0%, #c0392b 50%, #e2a96f 100%);
+}
+
+/* Selection color */
+::selection {
+  background: #c0392b;
+  color: #ffffff;
+}
+
+/* Smooth page transitions */
+.section {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Better focus states */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #c0392b;
+  outline-offset: 2px;
+}
+
+/* Product card body padding fix */
+.product-card-body {
+  padding: 16px !important;
+}
