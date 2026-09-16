@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { api } from "../api.js";
+import { db } from "../lib/db.js";
 
 export default function Products() {
   const { categorySlug } = useParams();
@@ -11,38 +11,11 @@ export default function Products() {
     async function fetchProducts() {
       try {
         setLoading(true);
-        const data = await api.getProducts();
-        console.log("All products:", data);
-        console.log("Category slug from URL:", categorySlug);
-
         if (categorySlug) {
-          const filtered = data.filter((p) => {
-            // ✅ Category name aur slug dono se match karo
-            const productCategoryName = (p.category?.name || "")
-              .toLowerCase()
-              .trim();
-            const productCategorySlug = (p.category?.slug || "")
-              .toLowerCase()
-              .trim();
-            const searchSlug = categorySlug.toLowerCase().trim();
-
-            console.log("Comparing:", {
-              productCategoryName,
-              productCategorySlug,
-              searchSlug,
-            });
-
-            // Multiple matching options
-            return (
-              productCategorySlug === searchSlug ||
-              productCategoryName === searchSlug ||
-              productCategoryName === searchSlug.replace(/-/g, " ") ||
-              productCategoryName.replace(/\s+/g, "-") === searchSlug
-            );
-          });
-          console.log("Filtered products:", filtered);
-          setProducts(filtered);
+          const data = await db.getProductsByCategorySlug(categorySlug);
+          setProducts(data);
         } else {
+          const data = await db.getProducts();
           setProducts(data);
         }
       } catch (error) {

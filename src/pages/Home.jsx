@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard.jsx";
-import { api } from "../api.js";
+import { db } from "../lib/db.js";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -11,7 +11,7 @@ export default function Home() {
     async function fetchProducts() {
       try {
         setLoading(true);
-        const data = await api.getProducts();
+        const data = await db.getProducts();
         // Show only first 4 products on home page
         setProducts(data.slice(0, 4));
       } catch (error) {

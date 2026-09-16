@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { api } from "../api.js";
+import { db } from "../lib/db.js";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -15,7 +15,7 @@ export default function ProductDetail() {
     async function fetchProduct() {
       try {
         setLoading(true);
-        const data = await api.getProduct(id);
+        const data = await db.getProduct(id);
         if (data) {
           setProduct(data);
           // Set default size if available
