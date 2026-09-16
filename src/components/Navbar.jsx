@@ -1,8 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
 
 export default function Navbar() {
   const { count } = useCart();
+  const { isAuthenticated, profile, isAdmin, logout } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleLogout(e) {
+    e.preventDefault();
+    try {
+      await logout();
+      navigate("/");
+    } catch (err) {
+      console.warn("Logout error:", err);
+    }
+  }
+
   return (
     <header className="nav-wrap">
       {/* Top Black Bar - TM INDUSTRY */}
@@ -37,26 +51,48 @@ export default function Navbar() {
             </button>
           </div>
 
-          {/* Right Side - Login + Social Icons */}
+          {/* Right Side - Auth + Social Icons */}
           <div className="nav-right">
-            <Link to="/login" className="nav-icon-btn">
-              <svg
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              <span>Login</span>
-            </Link>
+            {isAuthenticated ? (
+              <>
+                {isAdmin && (
+                  <Link to="/admin" className="nav-icon-btn">
+                    <span>Admin</span>
+                  </Link>
+                )}
+                <span className="nav-icon-btn" style={{ cursor: "default" }}>
+                  <span>Hi, {profile?.full_name || "User"}</span>
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="nav-icon-btn signup-btn"
+                  style={{ border: "none", fontFamily: "inherit" }}
+                >
+                  <span>Logout</span>
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="nav-icon-btn">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                  <span>Login</span>
+                </Link>
 
-            <Link to="/signup" className="nav-icon-btn signup-btn">
-              <span>Sign Up</span>
-            </Link>
+                <Link to="/signup" className="nav-icon-btn signup-btn">
+                  <span>Sign Up</span>
+                </Link>
+              </>
+            )}
 
             {/* WhatsApp Icon */}
             <a

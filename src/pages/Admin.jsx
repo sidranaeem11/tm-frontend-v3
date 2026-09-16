@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../api.js";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const ADMIN_KEY = "nokia3310";
 
@@ -35,8 +36,7 @@ const CATEGORIES = [
 ];
 
 export default function Admin() {
-  const [unlocked, setUnlocked] = useState(false);
-  const [passwordInput, setPasswordInput] = useState("");
+  const { profile } = useAuth();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState(CATEGORIES);
   const [form, setForm] = useState(emptyProduct);
@@ -50,17 +50,8 @@ export default function Admin() {
   }
 
   useEffect(() => {
-    if (unlocked) loadData();
-  }, [unlocked]);
-
-  function handleLogin(e) {
-    e.preventDefault();
-    if (passwordInput === ADMIN_KEY) {
-      setUnlocked(true);
-    } else {
-      setStatus("Incorrect password.");
-    }
-  }
+    loadData();
+  }, []);
 
   function startEdit(product) {
     setEditingId(product.id);
@@ -165,28 +156,11 @@ export default function Admin() {
     loadData();
   }
 
-  if (!unlocked) {
-    return (
-      <section className="section center">
-        <h2>Admin Login</h2>
-        <form onSubmit={handleLogin} className="admin-login-form">
-          <input
-            type="password"
-            placeholder="Admin password"
-            value={passwordInput}
-            onChange={(e) => setPasswordInput(e.target.value)}
-          />
-          <button type="submit" className="btn-primary">
-            Login
-          </button>
-        </form>
-        {status && <p className="muted">{status}</p>}
-      </section>
-    );
-  }
-
   return (
     <section className="section admin-page">
+      <p className="muted" style={{ marginBottom: 16 }}>
+        Logged in as: {profile?.email}
+      </p>
       <h2>{editingId ? "Edit product" : "Add a new product"}</h2>
 
       <form onSubmit={handleSubmit} className="admin-form">
